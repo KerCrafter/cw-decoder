@@ -58,6 +58,8 @@ module cw_decoder_core (
         case (char_wave[0:3])
           4'b1000: serial_line <= 66; //B
           4'b1010: serial_line <= 67; //C
+          4'b0010: serial_line <= 70; //F
+          4'b0000: serial_line <= 72; //H
         endcase
       end
 
