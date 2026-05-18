@@ -147,7 +147,7 @@ async def decode_S_char(dut):
   assert dut.serial_line.value == 83 
 
 @cocotb.test()
-async def decode_0_char(dut):
+async def decode_O_char(dut):
   await inital_reset(dut);
 
   await simulate_DAH(dut);
@@ -157,3 +157,15 @@ async def decode_0_char(dut):
   await simulate_CHAR_SPACE(dut);
 
   assert dut.serial_line.value == 79 
+
+@cocotb.test()
+async def decode_W_char(dut):
+  await inital_reset(dut);
+
+  await simulate_DIT(dut);
+  await simulate_DAH(dut);
+  await simulate_DAH(dut);
+
+  await simulate_CHAR_SPACE(dut);
+
+  assert dut.serial_line.value == 87 
