@@ -56,18 +56,20 @@ module cw_decoder_core (
 
       end else if(cur_pulse == 4) begin
         case (char_wave[0:3])
-          4'b1000: serial_line <= 66; //B
-          4'b1010: serial_line <= 67; //C
-          4'b0010: serial_line <= 70; //F
           4'b0000: serial_line <= 72; //H
-          4'b0111: serial_line <= 74; //J
-          4'b0100: serial_line <= 76; //L
-          4'b0110: serial_line <= 80; //P
-          4'b1101: serial_line <= 81; //Q
           4'b0001: serial_line <= 86; //V
-          4'b1100: serial_line <= 90; //Z
+          4'b0010: serial_line <= 70; //F
+
+          4'b0100: serial_line <= 76; //L
+
+          4'b0110: serial_line <= 80; //P
+          4'b0111: serial_line <= 74; //J
+          4'b1000: serial_line <= 66; //B
           4'b1001: serial_line <= 88; //X
+          4'b1010: serial_line <= 67; //C
           4'b1011: serial_line <= 89; //Y
+          4'b1100: serial_line <= 90; //Z
+          4'b1101: serial_line <= 81; //Q
         endcase
       end
 
