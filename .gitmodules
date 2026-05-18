@@ -1,0 +1,3 @@
+[submodule "quartus-cli-docker"]
+	path = quartus-cli-docker
+	url = git@github.com:KerCrafter/quartus-cli-docker.git
