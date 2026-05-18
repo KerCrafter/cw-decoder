@@ -41,19 +41,21 @@ module cw_decoder_core (
       end else if(cur_pulse == 1) begin
 
         if(pulse_rx[0] == 1 && pulse_rx[1] == 1) begin
-          serial_line <= 73; 
+          serial_line <= 73; //I 
         end else if(pulse_rx[0] > 1 && pulse_rx[1] > 1) begin
-          serial_line <= 77;
+          serial_line <= 77; //M
         end else if(pulse_rx[0] == 1 && pulse_rx[1] > 1) begin
-          serial_line <= 65;
+          serial_line <= 65; //A
         end else if(pulse_rx[0] > 1 && pulse_rx[1] == 1) begin
-          serial_line <= 78;
+          serial_line <= 78; //N
         end
 
       end else if(cur_pulse == 2) begin
 
         if(pulse_rx[0] == 1 && pulse_rx[1] == 1 && pulse_rx[2] == 1) begin
-          serial_line <= 83;
+          serial_line <= 83; //S
+        end else if(pulse_rx[0] > 1 && pulse_rx[1] > 1 && pulse_rx[2] > 1) begin
+          serial_line <= 79; //0
         end
 
       end
