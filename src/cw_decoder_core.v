@@ -30,21 +30,34 @@ module cw_decoder_core (
         end
       end
 
-      if(pulse_rx[0] == 1 && pulse_rx[1] == 0) begin
-        serial_line <= 69;
-      end else if(pulse_rx[0] > 1 && pulse_rx[1] == 0) begin
-        serial_line <= 84;
-      end else if(pulse_rx[0] == 1 && pulse_rx[1] == 1 && pulse_rx[2] == 0 ) begin
-        serial_line <= 73;
-      end else if(pulse_rx[0] > 1 && pulse_rx[1] > 1) begin
-        serial_line <= 77;
-      end else if(pulse_rx[0] == 1 && pulse_rx[1] > 1) begin
-        serial_line <= 65;
-      end else if(pulse_rx[0] > 1 && pulse_rx[1] == 1) begin
-        serial_line <= 78;
-      end else if(pulse_rx[0] == 1 && pulse_rx[1] == 1 && pulse_rx[2] == 1) begin
-        serial_line <= 83;
+      if(cur_pulse == 0) begin
+
+        if(pulse_rx[0] == 1) begin
+          serial_line <= 69; //E
+        end else if(pulse_rx[0] > 1) begin
+          serial_line <= 84; //T
+        end
+
+      end else if(cur_pulse == 1) begin
+
+        if(pulse_rx[0] == 1 && pulse_rx[1] == 1) begin
+          serial_line <= 73; 
+        end else if(pulse_rx[0] > 1 && pulse_rx[1] > 1) begin
+          serial_line <= 77;
+        end else if(pulse_rx[0] == 1 && pulse_rx[1] > 1) begin
+          serial_line <= 65;
+        end else if(pulse_rx[0] > 1 && pulse_rx[1] == 1) begin
+          serial_line <= 78;
+        end
+
+      end else if(cur_pulse == 2) begin
+
+        if(pulse_rx[0] == 1 && pulse_rx[1] == 1 && pulse_rx[2] == 1) begin
+          serial_line <= 83;
+        end
+
       end
+
     end
   end
 
