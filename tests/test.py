@@ -360,3 +360,29 @@ async def decode_Z_char(dut):
   await simulate_CHAR_SPACE(dut);
 
   assert dut.serial_line.value == 90 
+
+@cocotb.test()
+async def decode_X_char(dut):
+  await inital_reset(dut);
+
+  await simulate_DAH(dut);
+  await simulate_DIT(dut);
+  await simulate_DIT(dut);
+  await simulate_DAH(dut);
+
+  await simulate_CHAR_SPACE(dut);
+
+  assert dut.serial_line.value == 88 
+
+@cocotb.test()
+async def decode_Y_char(dut):
+  await inital_reset(dut);
+
+  await simulate_DAH(dut);
+  await simulate_DIT(dut);
+  await simulate_DAH(dut);
+  await simulate_DAH(dut);
+
+  await simulate_CHAR_SPACE(dut);
+
+  assert dut.serial_line.value == 89 
