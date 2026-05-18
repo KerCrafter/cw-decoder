@@ -7,7 +7,7 @@ module cw_decoder_core (
     output reg [7:0] serial_line
 );
 
-  reg [2:0] pulse_rx [0:1];
+  reg [2:0] pulse_rx [0:2];
   reg [2:0] cur_pulse;
 
   reg [2:0] sig2_len;
@@ -16,6 +16,7 @@ module cw_decoder_core (
     if(reset) begin
       pulse_rx[0] <= 0;
       pulse_rx[1] <= 0;
+      pulse_rx[2] <= 0;
       cur_pulse <= 0;
 
       serial_line <= 0;
@@ -33,7 +34,7 @@ module cw_decoder_core (
         serial_line <= 69;
       end else if(pulse_rx[0] > 1 && pulse_rx[1] == 0) begin
         serial_line <= 84;
-      end else if(pulse_rx[0] == 1 && pulse_rx[1] == 1) begin
+      end else if(pulse_rx[0] == 1 && pulse_rx[1] == 1 && pulse_rx[2] == 0 ) begin
         serial_line <= 73;
       end else if(pulse_rx[0] > 1 && pulse_rx[1] > 1) begin
         serial_line <= 77;
@@ -41,6 +42,8 @@ module cw_decoder_core (
         serial_line <= 65;
       end else if(pulse_rx[0] > 1 && pulse_rx[1] == 1) begin
         serial_line <= 78;
+      end else if(pulse_rx[0] == 1 && pulse_rx[1] == 1 && pulse_rx[2] == 1) begin
+        serial_line <= 83;
       end
     end
   end
