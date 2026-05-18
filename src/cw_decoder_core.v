@@ -61,6 +61,7 @@ module cw_decoder_core (
           4'b0010: serial_line <= 70; //F
           4'b0000: serial_line <= 72; //H
           4'b0111: serial_line <= 74; //J
+          4'b0100: serial_line <= 76; //L
         endcase
       end
 
