@@ -35,8 +35,10 @@ module cw_decoder_core (
         serial_line <= 84;
       end else if(pulse_rx[1] == 1) begin
         serial_line <= 73;
-      end else begin
+      end else if(pulse_rx[0] > 1 && pulse_rx[1] > 1) begin
         serial_line <= 77;
+      end else if(pulse_rx[0] == 1 && pulse_rx[1] > 1) begin
+        serial_line <= 65;
       end
     end
   end
