@@ -7,39 +7,33 @@ module cw_decoder_core (
     output reg [7:0] serial_line
 );
 
-  reg [2:0] sig_len;
-  reg sig_end;
+  reg [2:0] pulse_rx [0:1];
+  reg [2:0] cur_pulse;
 
   reg [2:0] sig2_len;
 
   always @(posedge clk) begin
     if(reset) begin
-      sig_len <= 0;
-      sig_end <= 0;
+      pulse_rx[0] <= 0;
+      pulse_rx[1] <= 0;
+      cur_pulse <= 0;
 
-      sig2_len <= 0;
       serial_line <= 0;
 
     end else begin
       if(cw_sig) begin
-        if(sig_end == 0) begin
-          sig_len = sig_len + 1;
-        end
-
-        if(sig_end == 1) begin
-          sig2_len = sig2_len + 1;
-        end
+        pulse_rx[cur_pulse] = pulse_rx[cur_pulse] + 1;
       end else begin
-        if(sig_len > 0) begin
-          sig_end <= 1;
+        if(pulse_rx[cur_pulse] > 0) begin
+          cur_pulse = cur_pulse + 1;
         end
       end
 
-      if(sig_len == 1 && sig2_len == 0) begin
+      if(pulse_rx[0] == 1 && pulse_rx[1] == 0) begin
         serial_line <= 69;
-      end else if(sig_len > 1 && sig2_len == 0) begin
+      end else if(pulse_rx[0] > 1 && pulse_rx[1] == 0) begin
         serial_line <= 84;
-      end else if(sig2_len == 1) begin
+      end else if(pulse_rx[1] == 1) begin
         serial_line <= 73;
       end else begin
         serial_line <= 77;
