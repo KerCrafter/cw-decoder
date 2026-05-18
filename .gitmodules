@@ -1,3 +1,6 @@
 [submodule "quartus-cli-docker"]
 	path = quartus-cli-docker
 	url = git@github.com:KerCrafter/quartus-cli-docker.git
+[submodule "tests/cocotb-runner"]
+	path = tests/cocotb-runner
+	url = git@github.com:KerCrafter/cocotb-runner.git
