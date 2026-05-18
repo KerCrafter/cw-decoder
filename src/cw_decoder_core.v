@@ -7,76 +7,57 @@ module cw_decoder_core (
     output reg [7:0] serial_line
 );
 
-  reg [2:0] pulse_rx [0:3];
   reg [2:0] cur_pulse;
-
-  reg [2:0] sig2_len;
+  reg [2:0] cur_pulse_len;
+  reg [0:3] char_wave;
 
   always @(posedge clk) begin
     if(reset) begin
-      pulse_rx[0] <= 0;
-      pulse_rx[1] <= 0;
-      pulse_rx[2] <= 0;
-      pulse_rx[3] <= 0;
+      char_wave <= 0;
       cur_pulse <= 0;
-
+      cur_pulse_len <= 0;
       serial_line <= 0;
 
     end else begin
       if(cw_sig) begin
-        pulse_rx[cur_pulse] = pulse_rx[cur_pulse] + 1;
+        cur_pulse_len <= cur_pulse_len + 1;
       end else begin
-        if(pulse_rx[cur_pulse] > 0) begin
-          cur_pulse = cur_pulse + 1;
+        cur_pulse_len <= 0;
+
+        if(cur_pulse_len > 0) begin
+          char_wave[cur_pulse] <= cur_pulse_len > 1;
+          cur_pulse <= cur_pulse + 1;
         end
       end
 
-      if(cur_pulse == 0) begin
-
-        if(pulse_rx[0] == 1) begin
-          serial_line <= 69; //E
-        end else if(pulse_rx[0] > 1) begin
-          serial_line <= 84; //T
-        end
-
-      end else if(cur_pulse == 1) begin
-
-        if(pulse_rx[0] == 1 && pulse_rx[1] == 1) begin
-          serial_line <= 73; //I 
-        end else if(pulse_rx[0] > 1 && pulse_rx[1] > 1) begin
-          serial_line <= 77; //M
-        end else if(pulse_rx[0] == 1 && pulse_rx[1] > 1) begin
-          serial_line <= 65; //A
-        end else if(pulse_rx[0] > 1 && pulse_rx[1] == 1) begin
-          serial_line <= 78; //N
-        end
-
+      if(cur_pulse == 1) begin
+        case (char_wave[0])
+          1'b0: serial_line <= 69; //E
+          1'b1: serial_line <= 84; //T
+        endcase
       end else if(cur_pulse == 2) begin
-
-        if(pulse_rx[0] == 1 && pulse_rx[1] == 1 && pulse_rx[2] == 1) begin
-          serial_line <= 83; //S
-        end else if(pulse_rx[0] > 1 && pulse_rx[1] > 1 && pulse_rx[2] > 1) begin
-          serial_line <= 79; //O
-        end else if(pulse_rx[0] == 1 && pulse_rx[1] > 1 && pulse_rx[2] > 1) begin
-          serial_line <= 87; //W
-        end else if(pulse_rx[0] == 1 && pulse_rx[1] == 1 && pulse_rx[2] > 1) begin
-          serial_line <= 85; //U
-        end else if(pulse_rx[0] == 1 && pulse_rx[1] > 1 && pulse_rx[2] == 1) begin
-          serial_line <= 82; //R
-        end else if(pulse_rx[0] > 1 && pulse_rx[1] == 1 && pulse_rx[2] > 1) begin
-          serial_line <= 75; //K
-        end else if(pulse_rx[0] > 1 && pulse_rx[1] > 1 && pulse_rx[2] == 1) begin
-          serial_line <= 71; //G
-        end else if(pulse_rx[0] > 1 && pulse_rx[1] == 1 && pulse_rx[2] == 1) begin
-          serial_line <= 68; //D
-        end
-
+        case (char_wave[0:1])
+          2'b00: serial_line <= 73; //I
+          2'b01: serial_line <= 65; //A
+          2'b10: serial_line <= 78; //N
+          2'b11: serial_line <= 77; //M
+        endcase
       end else if(cur_pulse == 3) begin
+        case (char_wave[0:2])
+          3'b000: serial_line <= 83; //S
+          3'b001: serial_line <= 85; //U
+          3'b010: serial_line <= 82; //R
+          3'b011: serial_line <= 87; //W
+          3'b100: serial_line <= 68; //D
+          3'b101: serial_line <= 75; //K
+          3'b110: serial_line <= 71; //G
+          3'b111: serial_line <= 79; //O
+        endcase
 
-        if(pulse_rx[0] > 1 && pulse_rx[1] == 1 && pulse_rx[2] == 1 && pulse_rx[3] == 1) begin
-          serial_line <= 66; //B
-        end
-
+      end else if(cur_pulse == 4) begin
+        case (char_wave[0:3])
+          4'b1000: serial_line <= 66; //B
+        endcase
       end
 
     end
