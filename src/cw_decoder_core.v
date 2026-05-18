@@ -57,6 +57,7 @@ module cw_decoder_core (
       end else if(cur_pulse == 4) begin
         case (char_wave[0:3])
           4'b1000: serial_line <= 66; //B
+          4'b1010: serial_line <= 67; //C
         endcase
       end
 
