@@ -321,3 +321,42 @@ async def decode_P_char(dut):
   await simulate_CHAR_SPACE(dut);
 
   assert dut.serial_line.value == 80 
+
+@cocotb.test()
+async def decode_Q_char(dut):
+  await inital_reset(dut);
+
+  await simulate_DAH(dut);
+  await simulate_DAH(dut);
+  await simulate_DIT(dut);
+  await simulate_DAH(dut);
+
+  await simulate_CHAR_SPACE(dut);
+
+  assert dut.serial_line.value == 81 
+
+@cocotb.test()
+async def decode_V_char(dut):
+  await inital_reset(dut);
+
+  await simulate_DIT(dut);
+  await simulate_DIT(dut);
+  await simulate_DIT(dut);
+  await simulate_DAH(dut);
+
+  await simulate_CHAR_SPACE(dut);
+
+  assert dut.serial_line.value == 86 
+
+@cocotb.test()
+async def decode_Z_char(dut):
+  await inital_reset(dut);
+
+  await simulate_DAH(dut);
+  await simulate_DAH(dut);
+  await simulate_DIT(dut);
+  await simulate_DIT(dut);
+
+  await simulate_CHAR_SPACE(dut);
+
+  assert dut.serial_line.value == 90 
