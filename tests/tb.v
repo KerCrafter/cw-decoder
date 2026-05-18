@@ -13,7 +13,7 @@ module tb ();
   wire clk;
   wire reset;
   wire cw_sig;
-  wire serial_line;
+  wire [7:0] serial_line;
 
   cw_decoder_core u_cw_decoder_core (
       .clk  (clk),
