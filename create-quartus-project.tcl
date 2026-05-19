@@ -12,6 +12,7 @@ set_global_assignment -name VERILOG_FILE src/cw_decoder_core.v
 set_location_assignment PIN_R8 -to clk
 set_location_assignment PIN_R14 -to cw_sig 
 
-set_location_assignment PIN_T14 -to serial_line
+set_location_assignment PIN_T14 -to kb_dp
+set_location_assignment PIN_R13 -to kb_dm
 
 project_close

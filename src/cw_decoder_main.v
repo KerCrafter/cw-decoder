@@ -4,8 +4,11 @@ module cw_decoder_main (
     input  wire clk,
     input  wire reset,
     input  wire cw_sig,
-    output wire serial_line
+    inout wire kb_dp,
+    inout wire kb_dm
 );
+
+    wire serial_line;
 
     cw_decoder_core cw_decoder_core_inst (
         .clk(clk),
