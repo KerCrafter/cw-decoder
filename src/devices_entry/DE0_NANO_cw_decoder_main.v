@@ -2,35 +2,41 @@ module DE0_NANO_cw_decoder_main(
     input  wire reset,
     input  wire clk,
     input  wire cw_sig,
-    inout wire kb_dp,
-    inout wire kb_dm,
-    output wire tp_usb_init,
-    output wire tp_sync_detected
+
+    output wire pico_strobe,
+    output wire [7:0] pico_data
 );
 
-    wire kb_dp_oe;
-    wire kb_dp_out;
-    wire kb_dp_in;
+    reg [7:0]  pico_data_r   = 8'h00;
+    reg        pico_strobe_r = 1'b0;
+    reg [25:0] timer         = 0;
+    reg [15:0] strobe_cnt    = 0;
 
-    wire kb_dm_oe;
-    wire kb_dm_out;
-    wire kb_dm_in;
+    assign pico_data   = pico_data_r;
+    assign pico_strobe = pico_strobe_r;
 
-    assign kb_dp = kb_dp_oe ? kb_dp_out : 1'bZ;
-    assign kb_dm = kb_dm_oe ? kb_dm_out : 1'bZ;
+    always @(posedge clk) begin
+        timer <= timer + 1;
+
+        // Gestion strobe — pulse de 1ms
+        if (strobe_cnt > 0) begin
+            strobe_cnt    <= strobe_cnt - 1;
+            pico_strobe_r <= 1'b1;
+        end else begin
+            pico_strobe_r <= 1'b0;
+        end
+
+        // 1 seconde après démarrage → envoie 'a'
+        if (timer == 26'd50_000_000) begin
+            pico_data_r <= 8'h62;       // ASCII 'a'
+            strobe_cnt  <= 16'd50_000;  // strobe 1ms
+        end
+    end
 
     cw_decoder_main u_cw_decoder_main (
         .clk(clk),
         .reset(1'b0),
-        .cw_sig(cw_sig),
-        .kb_dp_oe(kb_dp_oe),
-        .kb_dp_out(kb_dp_out),
-        .kb_dp_in(kb_dp),
-        .kb_dm_oe(kb_dm_oe),
-        .kb_dm_out(kb_dm_out),
-        .kb_dm_in(kb_dm),
-        .tp_usb_init(tp_usb_init),
-        .tp_sync_detected(tp_sync_detected)
+        .cw_sig(cw_sig)
     );
 
 endmodule

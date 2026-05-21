@@ -7,3 +7,9 @@
 [submodule "src/usb-hid-keyboard"]
 	path = src/usb-hid-keyboard
 	url = git@github.com:KerCrafter/usb-hid-keyboard.git
+[submodule "src/usb_hid_keyboard/src/usbcorev"]
+	path = src/usb_hid_keyboard/src/usbcorev
+	url = https://github.com/avakar/usbcorev
+[submodule "src/usb_hid_keyboard/src/FPGA-USB-Device"]
+	path = src/usb_hid_keyboard/src/FPGA-USB-Device
+	url = https://github.com/WangXuan95/FPGA-USB-Device
