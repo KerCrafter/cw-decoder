@@ -6,17 +6,19 @@ module DE0_NANO_cw_decoder_main(
     output wire pico_strobe,
     output wire [7:0] pico_data
 );
+    wire cw_clean;
+
+    wire [7:0] data;
+    wire       data_strobe;
 
     reg [7:0]  pico_data_r   = 8'h00;
     reg        pico_strobe_r = 1'b0;
-    reg [25:0] timer         = 0;
     reg [15:0] strobe_cnt    = 0;
 
     assign pico_data   = pico_data_r;
     assign pico_strobe = pico_strobe_r;
 
     always @(posedge clk) begin
-        timer <= timer + 1;
 
         // Gestion strobe — pulse de 1ms
         if (strobe_cnt > 0) begin
@@ -26,18 +28,29 @@ module DE0_NANO_cw_decoder_main(
             pico_strobe_r <= 1'b0;
         end
 
-        // 1 seconde après démarrage → envoie 'a'
-        if (timer == 26'd50_000_000) begin
-            pico_data_r <= 8'h62;       // ASCII 'a'
-            strobe_cnt  <= 16'd50_000;  // strobe 1ms
+        // Quand le core produit un caractère → on l'envoie au Pico
+        if (data_strobe) begin
+            pico_data_r <= data;            // capture le caractère
+            strobe_cnt  <= 16'd50_000;      // strobe 1ms à 50MHz
         end
+
     end
 
-    cw_decoder_main u_cw_decoder_main (
+    button_debouncer #(
+        .DEBOUNCE_CLK_CNT(65536)
+    ) cw_debouncer (
         .clk(clk),
-        .reset(1'b0),
-        .cw_sig(cw_sig)
+        .reset(~reset),
+        .btn_in(cw_sig),
+        .btn_debounced(cw_clean)
+    );
+
+    cw_decoder_main u_cw_decoder_main (
+        .clk         (clk),
+        .reset       (~reset),
+        .cw_sig      (cw_clean),
+        .data        (data),
+        .data_strobe (data_strobe)
     );
 
 endmodule
-

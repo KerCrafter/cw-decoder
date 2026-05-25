@@ -13,3 +13,6 @@
 [submodule "src/usb_hid_keyboard/src/FPGA-USB-Device"]
 	path = src/usb_hid_keyboard/src/FPGA-USB-Device
 	url = https://github.com/WangXuan95/FPGA-USB-Device
+[submodule "src/button-debouncer"]
+	path = src/button-debouncer
+	url = git@github.com:KerCrafter/button-debouncer.git

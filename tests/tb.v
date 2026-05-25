@@ -13,13 +13,15 @@ module tb ();
   wire clk;
   wire reset;
   wire cw_sig;
-  wire [7:0] serial_line;
+  wire [7:0] data;
+  wire data_strobe;
 
   cw_decoder_core u_cw_decoder_core (
       .clk  (clk),
       .reset  (reset),
       .cw_sig (cw_sig),
-      .serial_line(serial_line)
+      .data(data),
+      .data_strobe(data_strobe)
   );
 
 endmodule

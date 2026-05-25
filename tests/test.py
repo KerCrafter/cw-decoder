@@ -36,8 +36,108 @@ async def simulate_DIT(dut):
   dut.clk.value = '0';
   await Timer(1, unit='ns');
 
+
+async def simulate_DIT_5t(dut):
+  dut.cw_sig.value = '1'
+  await Timer(1, unit='ns');
+
+  dut.clk.value = '1';
+  await Timer(1, unit='ns');
+  dut.clk.value = '0';
+  await Timer(1, unit='ns');
+
+  dut.clk.value = '1';
+  await Timer(1, unit='ns');
+  dut.clk.value = '0';
+  await Timer(1, unit='ns');
+
+  dut.clk.value = '1';
+  await Timer(1, unit='ns');
+  dut.clk.value = '0';
+  await Timer(1, unit='ns');
+
+  dut.clk.value = '1';
+  await Timer(1, unit='ns');
+  dut.clk.value = '0';
+  await Timer(1, unit='ns');
+
+  dut.clk.value = '1';
+  await Timer(1, unit='ns');
+  dut.clk.value = '0';
+  await Timer(1, unit='ns');
+
+  dut.cw_sig.value = '0'
+  await Timer(1, unit='ns');
+
+  dut.clk.value = '1';
+  await Timer(1, unit='ns');
+  dut.clk.value = '0';
+  await Timer(1, unit='ns');
+
 async def simulate_DAH(dut):
   dut.cw_sig.value = '1'
+  await Timer(1, unit='ns');
+
+  dut.clk.value = '1';
+  await Timer(1, unit='ns');
+  dut.clk.value = '0';
+  await Timer(1, unit='ns');
+
+  dut.clk.value = '1';
+  await Timer(1, unit='ns');
+  dut.clk.value = '0';
+  await Timer(1, unit='ns');
+
+  dut.cw_sig.value = '0'
+  await Timer(1, unit='ns');
+
+  dut.clk.value = '1';
+  await Timer(1, unit='ns');
+  dut.clk.value = '0';
+  await Timer(1, unit='ns');
+
+async def simulate_DAH_10t(dut):
+  dut.cw_sig.value = '1'
+  await Timer(1, unit='ns');
+
+  dut.clk.value = '1';
+  await Timer(1, unit='ns');
+  dut.clk.value = '0';
+  await Timer(1, unit='ns');
+
+  dut.clk.value = '1';
+  await Timer(1, unit='ns');
+  dut.clk.value = '0';
+  await Timer(1, unit='ns');
+
+  dut.clk.value = '1';
+  await Timer(1, unit='ns');
+  dut.clk.value = '0';
+  await Timer(1, unit='ns');
+
+  dut.clk.value = '1';
+  await Timer(1, unit='ns');
+  dut.clk.value = '0';
+  await Timer(1, unit='ns');
+
+  dut.clk.value = '1';
+  await Timer(1, unit='ns');
+  dut.clk.value = '0';
+  await Timer(1, unit='ns');
+
+  dut.clk.value = '1';
+  await Timer(1, unit='ns');
+  dut.clk.value = '0';
+  await Timer(1, unit='ns');
+
+  dut.clk.value = '1';
+  await Timer(1, unit='ns');
+  dut.clk.value = '0';
+  await Timer(1, unit='ns');
+
+  dut.clk.value = '1';
+  await Timer(1, unit='ns');
+  dut.clk.value = '0';
   await Timer(1, unit='ns');
 
   dut.clk.value = '1';
@@ -77,7 +177,7 @@ async def decode_E_char(dut):
 
   await simulate_CHAR_SPACE(dut);
 
-  assert dut.serial_line.value == 69
+  assert dut.data.value == 69
 
 @cocotb.test()
 async def decode_T_char(dut):
@@ -87,7 +187,7 @@ async def decode_T_char(dut):
 
   await simulate_CHAR_SPACE(dut);
 
-  assert dut.serial_line.value == 84
+  assert dut.data.value == 84
 
 
 @cocotb.test()
@@ -99,7 +199,7 @@ async def decode_I_char(dut):
 
   await simulate_CHAR_SPACE(dut);
 
-  assert dut.serial_line.value == 73 
+  assert dut.data.value == 73 
 
 @cocotb.test()
 async def decode_M_char(dut):
@@ -110,7 +210,7 @@ async def decode_M_char(dut):
 
   await simulate_CHAR_SPACE(dut);
 
-  assert dut.serial_line.value == 77 
+  assert dut.data.value == 77 
 
 @cocotb.test()
 async def decode_A_char(dut):
@@ -121,7 +221,7 @@ async def decode_A_char(dut):
 
   await simulate_CHAR_SPACE(dut);
 
-  assert dut.serial_line.value == 65 
+  assert dut.data.value == 65 
 
 @cocotb.test()
 async def decode_N_char(dut):
@@ -132,7 +232,7 @@ async def decode_N_char(dut):
 
   await simulate_CHAR_SPACE(dut);
 
-  assert dut.serial_line.value == 78 
+  assert dut.data.value == 78 
 
 @cocotb.test()
 async def decode_S_char(dut):
@@ -144,7 +244,7 @@ async def decode_S_char(dut):
 
   await simulate_CHAR_SPACE(dut);
 
-  assert dut.serial_line.value == 83 
+  assert dut.data.value == 83 
 
 @cocotb.test()
 async def decode_O_char(dut):
@@ -156,7 +256,7 @@ async def decode_O_char(dut):
 
   await simulate_CHAR_SPACE(dut);
 
-  assert dut.serial_line.value == 79 
+  assert dut.data.value == 79 
 
 @cocotb.test()
 async def decode_W_char(dut):
@@ -168,7 +268,7 @@ async def decode_W_char(dut):
 
   await simulate_CHAR_SPACE(dut);
 
-  assert dut.serial_line.value == 87 
+  assert dut.data.value == 87 
 
 @cocotb.test()
 async def decode_U_char(dut):
@@ -180,7 +280,7 @@ async def decode_U_char(dut):
 
   await simulate_CHAR_SPACE(dut);
 
-  assert dut.serial_line.value == 85 
+  assert dut.data.value == 85 
 
 @cocotb.test()
 async def decode_R_char(dut):
@@ -192,7 +292,7 @@ async def decode_R_char(dut):
 
   await simulate_CHAR_SPACE(dut);
 
-  assert dut.serial_line.value == 82 
+  assert dut.data.value == 82 
 
 @cocotb.test()
 async def decode_K_char(dut):
@@ -204,7 +304,7 @@ async def decode_K_char(dut):
 
   await simulate_CHAR_SPACE(dut);
 
-  assert dut.serial_line.value == 75 
+  assert dut.data.value == 75 
 
 @cocotb.test()
 async def decode_G_char(dut):
@@ -216,7 +316,7 @@ async def decode_G_char(dut):
 
   await simulate_CHAR_SPACE(dut);
 
-  assert dut.serial_line.value == 71 
+  assert dut.data.value == 71 
 
 @cocotb.test()
 async def decode_D_char(dut):
@@ -228,7 +328,7 @@ async def decode_D_char(dut):
 
   await simulate_CHAR_SPACE(dut);
 
-  assert dut.serial_line.value == 68 
+  assert dut.data.value == 68 
 
 @cocotb.test()
 async def decode_B_char(dut):
@@ -241,7 +341,7 @@ async def decode_B_char(dut):
 
   await simulate_CHAR_SPACE(dut);
 
-  assert dut.serial_line.value == 66 
+  assert dut.data.value == 66 
 
 @cocotb.test()
 async def decode_C_char(dut):
@@ -254,7 +354,7 @@ async def decode_C_char(dut):
 
   await simulate_CHAR_SPACE(dut);
 
-  assert dut.serial_line.value == 67 
+  assert dut.data.value == 67 
 
 @cocotb.test()
 async def decode_F_char(dut):
@@ -267,7 +367,7 @@ async def decode_F_char(dut):
 
   await simulate_CHAR_SPACE(dut);
 
-  assert dut.serial_line.value == 70 
+  assert dut.data.value == 70 
 
 
 @cocotb.test()
@@ -281,7 +381,7 @@ async def decode_H_char(dut):
 
   await simulate_CHAR_SPACE(dut);
 
-  assert dut.serial_line.value == 72 
+  assert dut.data.value == 72 
 
 @cocotb.test()
 async def decode_J_char(dut):
@@ -294,7 +394,7 @@ async def decode_J_char(dut):
 
   await simulate_CHAR_SPACE(dut);
 
-  assert dut.serial_line.value == 74 
+  assert dut.data.value == 74 
 
 @cocotb.test()
 async def decode_L_char(dut):
@@ -307,7 +407,7 @@ async def decode_L_char(dut):
 
   await simulate_CHAR_SPACE(dut);
 
-  assert dut.serial_line.value == 76 
+  assert dut.data.value == 76 
 
 @cocotb.test()
 async def decode_P_char(dut):
@@ -320,7 +420,7 @@ async def decode_P_char(dut):
 
   await simulate_CHAR_SPACE(dut);
 
-  assert dut.serial_line.value == 80 
+  assert dut.data.value == 80 
 
 @cocotb.test()
 async def decode_Q_char(dut):
@@ -333,7 +433,7 @@ async def decode_Q_char(dut):
 
   await simulate_CHAR_SPACE(dut);
 
-  assert dut.serial_line.value == 81 
+  assert dut.data.value == 81 
 
 @cocotb.test()
 async def decode_V_char(dut):
@@ -346,7 +446,7 @@ async def decode_V_char(dut):
 
   await simulate_CHAR_SPACE(dut);
 
-  assert dut.serial_line.value == 86 
+  assert dut.data.value == 86 
 
 @cocotb.test()
 async def decode_Z_char(dut):
@@ -359,7 +459,7 @@ async def decode_Z_char(dut):
 
   await simulate_CHAR_SPACE(dut);
 
-  assert dut.serial_line.value == 90 
+  assert dut.data.value == 90 
 
 @cocotb.test()
 async def decode_X_char(dut):
@@ -372,7 +472,7 @@ async def decode_X_char(dut):
 
   await simulate_CHAR_SPACE(dut);
 
-  assert dut.serial_line.value == 88 
+  assert dut.data.value == 88 
 
 @cocotb.test()
 async def decode_Y_char(dut):
@@ -385,4 +485,59 @@ async def decode_Y_char(dut):
 
   await simulate_CHAR_SPACE(dut);
 
-  assert dut.serial_line.value == 89 
+  assert dut.data.value == 89 
+
+@cocotb.test()
+async def decode_E_char_5T_considered_as_DAH(dut):
+  await inital_reset(dut);
+
+  await simulate_DIT_5t(dut);
+
+  await simulate_CHAR_SPACE(dut);
+
+  assert dut.data.value == 84 
+
+@cocotb.test()
+async def decode_T_char_10T_and_E_char_DIT(dut):
+  await inital_reset(dut);
+
+  await simulate_DAH_10t(dut);
+
+  await simulate_CHAR_SPACE(dut);
+  await simulate_CHAR_SPACE(dut);
+  await simulate_CHAR_SPACE(dut);
+  await simulate_CHAR_SPACE(dut);
+
+  assert dut.data.value == 84
+
+  await simulate_DIT_5t(dut);
+
+  await simulate_CHAR_SPACE(dut);
+ 
+  assert dut.data.value == 69 
+
+@cocotb.test()
+async def decode_T_char_10T(dut):
+  await inital_reset(dut);
+
+  await simulate_DAH_10t(dut);
+
+  await simulate_CHAR_SPACE(dut);
+
+  assert dut.data.value == 84
+
+@cocotb.test()
+async def decode_T_char_10T_and_M_char_DAH_DAH(dut):
+  await inital_reset(dut);
+
+  await simulate_DAH_10t(dut);
+
+  await simulate_CHAR_SPACE(dut);
+  await simulate_CHAR_SPACE(dut);
+
+  assert dut.data.value == 84
+
+  await simulate_DAH_10t(dut);
+  await simulate_DAH_10t(dut);
+
+  assert dut.data.value == 77 

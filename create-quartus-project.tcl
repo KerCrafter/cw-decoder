@@ -8,6 +8,7 @@ set_global_assignment -name PROJECT_OUTPUT_DIRECTORY output_files
 set_global_assignment -name VERILOG_FILE src/devices_entry/DE0_NANO_cw_decoder_main.v
 set_global_assignment -name VERILOG_FILE src/cw_decoder_main.v 
 set_global_assignment -name VERILOG_FILE src/cw_decoder_core.v
+set_global_assignment -name VERILOG_FILE src/button-debouncer/button_debouncer.v
 
 set_location_assignment PIN_R8 -to clk
 set_location_assignment PIN_L15 -to reset
